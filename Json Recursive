@@ -1,0 +1,350 @@
+schema_a = """{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "name",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "firstname",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "lastname",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "alias",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "aname",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "others",
+                  "type": {
+                    "type": "map",
+                    "keyType": "string",
+                    "valueType": "string",
+                    "valueContainsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                }
+              ]
+            }
+          },
+          {
+            "name": "middlename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "dob",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "gender",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "salary",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "hobbies",
+      "type": {
+        "type": "array",
+        "elementType": "string",
+        "containsNull": true
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "properties",
+      "type": {
+        "type": "map",
+        "keyType": "string",
+        "valueType": "string",
+        "valueContainsNull": true
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "address",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "addressline1",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "addressline2",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "pin",
+            "type": "int",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    }
+  ]
+}"""
+
+schema_b = """{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "name",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "lastname",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "firstname",
+            "type": "int",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "alias",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "aname",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "others",
+                  "type": {
+                    "type": "map",
+                    "keyType": "string",
+                    "valueType": "int",
+                    "valueContainsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                }
+              ]
+            }
+          },
+          {
+            "name": "middlename",
+            "type": "int",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "dob",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "gender",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "salary",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "ssn",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "hobbies",
+      "type": {
+        "type": "array",
+        "elementType": "int",
+        "containsNull": true
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "properties",
+      "type": {
+        "type": "map",
+        "keyType": "string",
+        "valueType": "string",
+        "valueContainsNull": true
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "address",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "addressline1",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "addressline2",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "pin",
+            "type": "int",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    }
+  ]
+}"""
+
+schema_c = """{"type":"struct","fields":[{"name":"name","type":{"type":"struct","fields":[{"name":"firstname","type":"string","nullable":true,"metadata":{}},{"name":"middlename","type":"string","nullable":true,"metadata":{}},{"name":"lastname","type":"string","nullable":true,"metadata":{}}]},"nullable":true,"metadata":{}},{"name":"hobbies","type":{"type":"array","elementType":"string","containsNull":true},"nullable":true,"metadata":{}},{"name":"properties","type":{"type":"map","keyType":"string","valueType":"string","valueContainsNull":true},"nullable":true,"metadata":{}}]}"""
+stack = []
+import json
+
+json_schema_a = json.loads(schema_a)
+json_schema_b = json.loads(schema_b)
+
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+# logger.info(json_schema_a)
+# logger.info(json_schema_b)
+
+def compare_flattened_json(a, b):
+    a_keys = a.keys()
+    b_keys = b.keys()
+    cb_list = set(a_keys | b_keys)
+    assert max(len(a_keys), len(b_keys)) == len(
+        cb_list), "Length of combined keys in not equal to max of 2 input dict keys"
+    ind = 0
+    report = list()
+    for col in cb_list:
+        if col in a_keys and col in b_keys and a[col] == b[col]:
+            report.append((col, a[col], b[col], True))
+        else:
+            report.append((col, a[col] if col in a_keys else "NA", b[col] if col in b_keys else "NA", False))
+
+    all_match = all([val[3] for val in report])
+    return all_match, report
+
+
+def schema_recur(schema_json_obj, stack, final_stack):
+    fields = None
+    if isinstance(schema_json_obj.get("type"), dict):
+        type_val = schema_json_obj.get("type").get("type")
+        logger.debug("complex->{}-{}".format(schema_json_obj.get("name"), type_val))
+
+        if type_val == "struct":
+            stack.append(schema_json_obj.get("name"))
+            fields = schema_json_obj.get("type").get("fields")
+            for field in fields:
+                schema_recur(field, stack, final_stack)
+            stack.pop()
+
+        elif type_val == "array":
+            parent = ".".join(stack)
+            ele = parent + "." + schema_json_obj.get("name") if parent is not "" else schema_json_obj.get("name")
+            final_stack[ele] = type_val + "-" + schema_json_obj.get("type").get("elementType")
+        else:
+            logger.info("Default type map {} ".format(type_val))
+            parent = ".".join(stack)
+            ele = parent + "." + schema_json_obj.get("name") if parent is not "" else schema_json_obj.get("name")
+            final_stack[ele] = type_val + "-" + schema_json_obj.get("type").get("keyType") + ":" + schema_json_obj.get(
+                "type").get("valueType")
+    else:
+        parent = ".".join(stack)
+        logger.debug(
+            "Element = {} Type = {}".format(parent + "." + schema_json_obj.get("name"), schema_json_obj.get("type")))
+        ele = parent + "." + schema_json_obj.get("name") if parent is not "" else schema_json_obj.get("name")
+        final_stack[ele] = schema_json_obj.get("type")
+
+    return
+
+
+def first_call(schema_json_obj):
+    logger.debug({"complex": "root"})
+    final_stack = dict()
+    # logger.debug(schema_json_obj)
+    for field in schema_json_obj.get("fields"):
+        schema_recur(field, stack, final_stack)
+    return final_stack
+
+
+json_schema_f_a = first_call(json_schema_a)
+json_schema_f_b = first_call(json_schema_b)
+logger.info(json_schema_f_a)
+logger.info(json_schema_f_b)
+
+result, report = compare_flattened_json(json_schema_f_a, json_schema_f_b)
+
+if result:
+    logger.info("Schema Match")
+else:
+    logger.info("Schema Mismatch!!")
+    logger.info("------Report-----")
+    logger.info("Column Name,Schema A, Schema B, IsMatch")
+    for c1,c2,c3,c4 in report:
+        logger.info("{},{},{},{}".format(c1,c2,c3,c4))
